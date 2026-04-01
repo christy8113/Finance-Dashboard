@@ -30,39 +30,43 @@ const Dashboard = () => {
     return Object.keys(map).map(k => ({ name: k, value: map[k] }));
   }, [transactions]);
 
-  if (transactions.length === 0) {
-    return <p className="p-6 text-gray-500">No data available</p>;
-  }
-
   return (
-    <div className="p-6">
-      <div className="grid grid-cols-3 gap-4 mb-6">
+    <div className="p-6 space-y-6">
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <SummaryCard title="Balance" value={stats.balance} />
         <SummaryCard title="Income" value={stats.income} />
         <SummaryCard title="Expenses" value={stats.expense} />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <ResponsiveContainer width="100%" height={250}>
-          <AreaChart data={transactions}>
-            <XAxis dataKey="date" />
-            <Tooltip />
-            <Area dataKey="amount" stroke="#6366f1" fill="#6366f1" />
-          </AreaChart>
-        </ResponsiveContainer>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
-        <ResponsiveContainer width="100%" height={250}>
-          <PieChart>
-            <Pie data={categoryData} dataKey="value">
-              {categoryData.map((_, i) => (
-                <Cell key={i} fill={['#6366f1', '#10b981', '#f59e0b'][i % 3]} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
+        <div className="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <ResponsiveContainer width="100%" height={250}>
+            <AreaChart data={transactions}>
+              <XAxis dataKey="date" />
+              <Tooltip />
+              <Area dataKey="amount" stroke="#6366f1" fill="#6366f1" />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie data={categoryData} dataKey="value">
+                {categoryData.map((_, i) => (
+                  <Cell key={i} fill={['#6366f1', '#10b981', '#f59e0b'][i % 3]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
       </div>
 
       <Insights transactions={transactions} stats={stats} />
+
     </div>
   );
 };

@@ -15,20 +15,24 @@ export const FinanceProvider = ({ children }) => {
   });
 
   const [role, setRole] = useState('admin');
-  const [filterType, setFilterType] = useState('all');
-  const [search, setSearch] = useState('');
+
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
 
   useEffect(() => {
     localStorage.setItem('transactions', JSON.stringify(transactions));
   }, [transactions]);
 
-  const addTransaction = (t) => {
-    setTransactions([...transactions, { ...t, id: Date.now() }]);
-  };
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
 
-  const deleteTransaction = (id) => {
+  const addTransaction = (t) =>
+    setTransactions([...transactions, { ...t, id: Date.now() }]);
+
+  const deleteTransaction = (id) =>
     setTransactions(transactions.filter(t => t.id !== id));
-  };
 
   return (
     <FinanceContext.Provider value={{
@@ -37,10 +41,8 @@ export const FinanceProvider = ({ children }) => {
       setRole,
       addTransaction,
       deleteTransaction,
-      filterType,
-      setFilterType,
-      search,
-      setSearch
+      darkMode,
+      setDarkMode
     }}>
       {children}
     </FinanceContext.Provider>
