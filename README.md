@@ -46,26 +46,6 @@ The application is fully frontend-based and uses local storage for persistence.
 
 ---
 
-## 🧱 Project Structure
-
-src/
-│
-├── components/
-│ ├── Header.js
-│ ├── Dashboard.js
-│ ├── TransactionsList.js
-│ ├── Insights.js
-│ ├── SummaryCard.js
-│
-├── context/
-│ └── FinanceContext.js
-│
-├── App.js
-├── index.js
-
-
----
-
 ## ⚙️ State Management
 
 Managed using **React Context API**:
